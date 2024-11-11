@@ -8,7 +8,7 @@ class FlightDAO:
 
     @staticmethod
     def get_flight_by_id(session: Session, flight_id: int):
-        return session.query(Flight).filter(Flight.idFlight == flight_id).first()
+        return session.query(Flight).get(flight_id)
 
     @staticmethod
     def create_flight(session: Session, flight_data: dict):
@@ -19,7 +19,7 @@ class FlightDAO:
 
     @staticmethod
     def update_flight(session: Session, flight_id: int, updated_data: dict):
-        flight = session.query(Flight).filter(Flight.idFlight == flight_id).first()
+        flight = session.query(Flight).get(flight_id)
         if flight:
             for key, value in updated_data.items():
                 setattr(flight, key, value)
@@ -28,8 +28,15 @@ class FlightDAO:
 
     @staticmethod
     def delete_flight(session: Session, flight_id: int):
-        flight = session.query(Flight).filter(Flight.idFlight == flight_id).first()
+        flight = session.query(Flight).get(flight_id)
         if flight:
             session.delete(flight)
             session.commit()
         return flight
+
+    # @staticmethod
+    # def get_flights_with_routes(session):
+    #     flights = session.query(Flight).all()
+    #     flight_data = [flight.to_dict_1() for flight in flights]
+    #     return flight_data
+

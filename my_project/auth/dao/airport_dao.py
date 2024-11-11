@@ -8,7 +8,7 @@ class AirportDAO:
 
     @staticmethod
     def get_airport_by_id(session: Session, airport_id: int):
-        return session.query(Airport).filter(Airport.idAirport == airport_id).first()
+        return session.query(Airport).get(airport_id)
 
     @staticmethod
     def create_airport(session: Session, airport_data: dict):
@@ -19,7 +19,7 @@ class AirportDAO:
 
     @staticmethod
     def update_airport(session: Session, airport_id: int, updated_data: dict):
-        airport = session.query(Airport).filter(Airport.idAirport == airport_id).first()
+        airport = session.query(Airport).get(airport_id)
         if airport:
             for key, value in updated_data.items():
                 setattr(airport, key, value)
@@ -28,7 +28,7 @@ class AirportDAO:
 
     @staticmethod
     def delete_airport(session: Session, airport_id: int):
-        airport = session.query(Airport).filter(Airport.idAirport == airport_id).first()
+        airport = session.query(Airport).get(airport_id)
         if airport:
             session.delete(airport)
             session.commit()

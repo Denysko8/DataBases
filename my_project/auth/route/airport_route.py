@@ -19,6 +19,7 @@ def create_airport():
 def update_airport(airport_id):
     return AirportController.update_airport(airport_id)
 
+
 @airport_bp.route('/airports/<int:airport_id>', methods=['DELETE'])
 def delete_airport(airport_id):
     return AirportController.delete_airport(airport_id)

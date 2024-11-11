@@ -8,7 +8,7 @@ class PlaneDAO:
 
     @staticmethod
     def get_plane_by_id(session: Session, plane_id: int):
-        return session.query(Plane).filter(Plane.idPlane == plane_id).first()
+        return session.query(Plane).get(plane_id)
 
     @staticmethod
     def create_plane(session: Session, plane_data: dict):
@@ -19,7 +19,7 @@ class PlaneDAO:
 
     @staticmethod
     def update_plane(session: Session, plane_id: int, updated_data: dict):
-        plane = session.query(Plane).filter(Plane.idPlane == plane_id).first()
+        plane = session.query(Plane).get(plane_id)
         if plane:
             for key, value in updated_data.items():
                 setattr(plane, key, value)
@@ -28,7 +28,7 @@ class PlaneDAO:
 
     @staticmethod
     def delete_plane(session: Session, plane_id: int):
-        plane = session.query(Plane).filter(Plane.idPlane == plane_id).first()
+        plane = session.query(Plane).get(plane_id)
         if plane:
             session.delete(plane)
             session.commit()

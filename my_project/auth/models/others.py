@@ -1,5 +1,6 @@
 from db_init import db
 from datetime import datetime
+from my_project.auth.models.flight_has_route import flight_route
 
 class Airline(db.Model):
     __tablename__ = 'airlines'
@@ -17,8 +18,10 @@ class Airline(db.Model):
             "airline_id": self.airline_id,
             "name": self.name,
             "country": self.country,
-            "founded_date": self.founded_date
+            "founded_date": self.founded_date,
+            "planes": [plane.registration_number for plane in self.planes]  # List of associated planes
         }
+
 
 
 class Route(db.Model):
@@ -29,6 +32,7 @@ class Route(db.Model):
     destination_airport_id = db.Column(db.Integer, db.ForeignKey('airports.airport_id', ondelete="SET NULL"), nullable=True, default=None)
     distance = db.Column(db.Integer, nullable=True, default=None)
 
+    flights = db.relationship('Flight', secondary=flight_route, back_populates='routes')
     def __repr__(self):
         return f"<Route(route_id={self.route_id}, distance={self.distance})>"
 
@@ -37,7 +41,8 @@ class Route(db.Model):
             "route_id": self.route_id,
             "origin_airport_id": self.origin_airport_id,
             "destination_airport_id": self.destination_airport_id,
-            "distance": self.distance
+            "distance": self.distance,
+            "flights": [flight.flight_number for flight in self.flights]
         }
 
 
