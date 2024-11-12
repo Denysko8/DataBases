@@ -3,7 +3,7 @@ from datetime import datetime
 from my_project.auth.models.flight_has_route import flight_route
 
 class Airline(db.Model):
-    __tablename__ = 'airlines'
+    __tablename__ = 'airline'
 
     airline_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
@@ -25,14 +25,20 @@ class Airline(db.Model):
 
 
 class Route(db.Model):
-    __tablename__ = 'routes'
+    __tablename__ = 'route'
 
     route_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    origin_airport_id = db.Column(db.Integer, db.ForeignKey('airports.airport_id', ondelete="SET NULL"), nullable=True, default=None)
-    destination_airport_id = db.Column(db.Integer, db.ForeignKey('airports.airport_id', ondelete="SET NULL"), nullable=True, default=None)
+    origin_airport_id = db.Column(db.Integer, db.ForeignKey('airport.airport_id', ondelete="SET NULL"), nullable=True, default=None)
+    destination_airport_id = db.Column(db.Integer, db.ForeignKey('airport.airport_id', ondelete="SET NULL"), nullable=True, default=None)
     distance = db.Column(db.Integer, nullable=True, default=None)
 
-    flights = db.relationship('Flight', secondary=flight_route, back_populates='routes')
+    flights = db.relationship(
+        'Flight',
+        secondary=flight_route,
+        back_populates='routes',
+        primaryjoin="Flight.flight_id == flight_has_route.c.flight_id",
+        secondaryjoin="Route.route_id == flight_has_route.c.route_id"
+    )
     def __repr__(self):
         return f"<Route(route_id={self.route_id}, distance={self.distance})>"
 
@@ -47,7 +53,7 @@ class Route(db.Model):
 
 
 class Pilot(db.Model):
-    __tablename__ = 'pilots'
+    __tablename__ = 'pilot'
 
     pilot_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
@@ -67,7 +73,7 @@ class Pilot(db.Model):
 
 
 class FlightCrew(db.Model):
-    __tablename__ = 'flight_crews'
+    __tablename__ = 'flight_crew'
 
     crew_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     flight_id = db.Column(db.Integer, db.ForeignKey('flights.flight_id', ondelete="SET NULL"), nullable=True, default=None)
@@ -87,7 +93,7 @@ class FlightCrew(db.Model):
 
 
 class MaintenanceRecord(db.Model):
-    __tablename__ = 'maintenance_records'
+    __tablename__ = 'maintenance_record'
 
     maintenance_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     plane_id = db.Column(db.Integer, db.ForeignKey('planes.plane_id', ondelete="SET NULL"), nullable=True, default=None)
@@ -129,7 +135,7 @@ class PlaneHistory(db.Model):
 
 
 class PlanePosition(db.Model):
-    __tablename__ = 'plane_positions'
+    __tablename__ = 'plane_position'
 
     position_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     plane_id = db.Column(db.Integer, db.ForeignKey('planes.plane_id', ondelete="SET NULL"), nullable=True, default=None)

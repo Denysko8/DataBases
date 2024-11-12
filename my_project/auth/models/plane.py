@@ -2,7 +2,7 @@ from db_init import db
 from my_project.auth.models.others import Airline  # Ensure correct import
 
 class Plane(db.Model):
-    __tablename__ = 'planes'
+    __tablename__ = 'plane'
 
     plane_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     registration_number = db.Column(db.String(20), nullable=False, unique=True)
