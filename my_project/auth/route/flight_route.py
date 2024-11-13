@@ -13,33 +13,20 @@ def get_all_flights():
     flights_data = [flight.to_dict() for flight in flights]
     return jsonify(flights_data)
 
-# Запит для виведення всіх рейсів з маршрутами
-@flight_bp.route('/flights_with_routes', methods=['GET'])
-def get_flights_with_routes():
-    flights = Flight.query.all()
-    flights_data = []
 
-    for flight in flights:
-        flight_data = flight.to_dict()
-        # Додаємо інформацію про маршрути для кожного рейсу
-        flight_data['routes'] = [route.to_dict() for route in flight.routes]
-        flights_data.append(flight_data)
-
-    return jsonify(flights_data)
-
-@flight_bp.route('/flights_with_airports', methods=['GET'])
-def get_flights_with_airports():
-    flights = Flight.query.all()
-    flights_data = []
-
-    for flight in flights:
-        flight_data = flight.to_dict()
-        # Додаємо інформацію про аеропорти відправлення і прибуття
-        flight_data['departure_airport'] = flight.departure_airport.to_dict() if flight.departure_airport else None
-        flight_data['arrival_airport'] = flight.arrival_airport.to_dict() if flight.arrival_airport else None
-        flights_data.append(flight_data)
-
-    return jsonify(flights_data)
+# @flight_bp.route('/flights_with_airports', methods=['GET'])
+# def get_flights_with_airports():
+#     flights = Flight.query.all()
+#     flights_data = []
+#
+#     for flight in flights:
+#         flight_data = flight.to_dict()
+#         # Додаємо інформацію про аеропорти відправлення і прибуття
+#         flight_data['departure_airport'] = flight.departure_airport.to_dict() if flight.departure_airport else None
+#         flight_data['arrival_airport'] = flight.arrival_airport.to_dict() if flight.arrival_airport else None
+#         flights_data.append(flight_data)
+#
+#     return jsonify(flights_data)
 
 @flight_bp.route('/flights/<int:flight_id>', methods=['GET'])
 def get_flight_by_id(flight_id):
