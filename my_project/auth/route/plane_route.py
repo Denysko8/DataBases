@@ -12,31 +12,11 @@ def get_all_planes():
 
 @plane_bp.route('/planes_with_maintenances', methods=['GET'])
 def get_planes_with_maintenances():
-    planes = Plane.query.all()
-    planes_data = []
-
-    for plane in planes:
-        plane_data = plane.to_dict()
-        plane_data['maintenance'] = [maintenance.to_dict() for maintenance in plane.maintenances]
-        planes_data.append(plane_data)
-
-    return jsonify(planes_data)
+    return PlaneController.get_planes_with_maintenances()
 
 @plane_bp.route('/planes_with_airline', methods=['GET'])
 def get_planes_with_airline():
-    planes = Plane.query.all()
-    planes_data = []
-
-    for plane in planes:
-        # Convert plane data to a dictionary
-        plane_data = plane.to_dict()
-        
-        # Add airline details to plane data
-        plane_data['airline'] = plane.airline.to_dict() if plane.airline else None
-        
-        planes_data.append(plane_data)
-
-    return jsonify(planes_data)
+    return PlaneController.get_planes_with_airline()
 
 
 

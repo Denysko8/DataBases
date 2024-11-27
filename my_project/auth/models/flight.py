@@ -1,6 +1,5 @@
 from db_init import db
 from my_project.auth.models.others import Route  # Import Route model if needed
-from my_project.auth.models.flight_has_route import flight_route
 
 class Flight(db.Model):
     __tablename__ = 'flight'

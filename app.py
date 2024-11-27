@@ -7,7 +7,6 @@ from my_project.auth.route.flight_route import flight_bp
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:denysko@localhost/mydb'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 

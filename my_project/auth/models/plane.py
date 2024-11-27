@@ -25,3 +25,4 @@ class Plane(db.Model):
             "airline_id": self.airline_id,
             "total_flight_hours": self.total_flight_hours,
         }
+

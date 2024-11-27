@@ -34,9 +34,4 @@ class FlightDAO:
             session.commit()
         return flight
 
-    # @staticmethod
-    # def get_flights_with_routes(session):
-    #     flights = session.query(Flight).all()
-    #     flight_data = [flight.to_dict_1() for flight in flights]
-    #     return flight_data
 
