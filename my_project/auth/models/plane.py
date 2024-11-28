@@ -1,8 +1,8 @@
 from db_init import db
-from my_project.auth.models.others import MaintenanceRecord
 from my_project.auth.models.plane_and_maintenance import plane_maintenance
 
 class Plane(db.Model):
+
     __tablename__ = 'plane'
 
     plane_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -25,4 +25,3 @@ class Plane(db.Model):
             "airline_id": self.airline_id,
             "total_flight_hours": self.total_flight_hours,
         }
-

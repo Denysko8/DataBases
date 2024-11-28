@@ -8,6 +8,7 @@ class PlaneController:
         planes = PlaneService.get_all_planes(db.session)
         return jsonify([plane.to_dict() for plane in planes])
 
+    @staticmethod
     def get_planes_with_maintenances():
         planes = PlaneService.get_all_planes(db.session)
         planes_data = []
@@ -41,6 +42,24 @@ class PlaneController:
         plane_data = request.json
         plane = PlaneService.create_plane(db.session, plane_data)
         return jsonify(plane.to_dict()), 201
+
+    @staticmethod
+    def create_plane_with_maintenance():
+        # Get data from the request
+        data = request.json
+        plane_id = data.get("plane_id")
+        maintenance_id = data.get("maintenance_id")
+        maintenance_date = data.get("maintenance_date")
+
+        if not plane_id or not maintenance_id or not maintenance_date:
+            return jsonify({"error": "Plane ID, Maintenance Record ID, and Maintenance Date are required"}), 400
+
+        try:
+            # Create the association between the plane and maintenance record
+            result = PlaneService.create_maintenance_association(db.session, plane_id, maintenance_id, maintenance_date)
+            return jsonify(result), 201
+        except ValueError as e:
+            return jsonify({"error": str(e)}), 400
 
     @staticmethod
     def update_plane(plane_id: int):

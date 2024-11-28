@@ -1,6 +1,7 @@
 from db_init import db
-from my_project.auth.models.others import Route  # Import Route model if needed
+from my_project.auth.models.passenger import Passenger  # Import Passenger model
 
+# In Flight model
 class Flight(db.Model):
     __tablename__ = 'flight'
 
@@ -10,10 +11,8 @@ class Flight(db.Model):
     arrival_time = db.Column(db.DateTime, default=None)
     route_id = db.Column(db.Integer, db.ForeignKey('route.route_id'), default=None)
 
-    #departure_airport = db.relationship('Airport', foreign_keys=[departure_airport_id], backref='departing_flights')
-    #arrival_airport = db.relationship('Airport', foreign_keys=[arrival_airport_id], backref='arriving_flights')
-
-    #routes = db.relationship('Route', secondary=flight_route, back_populates='flights')
+    # Remove backref from Flight model
+    passengers = db.relationship('Passenger', lazy=True)
 
     def __repr__(self):
         return f"<Flight(flight_id={self.flight_id}, flight_number='{self.flight_number}', departure_time='{self.departure_time}')>"
@@ -24,5 +23,6 @@ class Flight(db.Model):
             "flight_number": self.flight_number,
             "departure_time": self.departure_time.isoformat() if self.departure_time else None,
             "arrival_time": self.arrival_time.isoformat() if self.arrival_time else None,
-            "route_id": self.route_id
+            "route_id": self.route_id,
+            "passengers": [passenger.to_dict() for passenger in self.passengers]
         }
