@@ -9,7 +9,7 @@ from my_project.auth.route.flight_route import flight_bp
 app = Flask(__name__)
 
 load_dotenv()
-app.config['SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{os.environ['USER']}:{os.environ['PASSWORD']}@{os.environ['PUBLIC_IP']}:3306/{os.environ['DB_NAME']}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.environ['USER']}:{os.environ['PASSWORD']}@{os.environ['PUBLIC_IP']}:3306/{os.environ['DB_NAME']}"
 
 
 db.init_app(app)
