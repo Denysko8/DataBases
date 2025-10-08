@@ -1,5 +1,5 @@
 from db_init import db
-from my_project.auth.models.passenger import Passenger  # Import Passenger model
+#from my_project.auth.models.passenger import Passenger  # Import Passenger model
 
 # In Flight model
 class Flight(db.Model):
