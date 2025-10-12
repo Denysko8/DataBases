@@ -51,10 +51,10 @@ def get_airport_by_id(airport_id):
             - airports
         parameters:
             - name: airport_id
-                in: path
-                type: integer
-                required: true
-                description: ID of the airport to retrieve
+              in: path
+              type: integer
+              required: true
+              description: ID of the airport to retrieve
         responses:
             200:
                 description: Airport object
@@ -90,9 +90,9 @@ def create_airport():
             - application/json
         parameters:
             - in: body
-                name: body
-                required: true
-                schema:
+              name: body
+              required: true
+              schema:
                     type: object
                     required:
                         - name
@@ -129,15 +129,15 @@ def update_airport(airport_id):
             - airports
         consumes:
             - application/json
-        parameters:
-            - name: airport_id
-                in: path
-                type: integer
-                required: true
-                description: ID of the airport to update
-            - in: body
-                name: body
-                schema:
+                parameters:
+                        - name: airport_id
+                            in: path
+                            type: integer
+                            required: true
+                            description: ID of the airport to update
+                        - in: body
+                            name: body
+                            schema:
                     type: object
                     properties:
                         name:
@@ -170,10 +170,10 @@ def delete_airport(airport_id):
             - airports
         parameters:
             - name: airport_id
-                in: path
-                type: integer
-                required: true
-                description: ID of the airport to delete
+              in: path
+              type: integer
+              required: true
+              description: ID of the airport to delete
         responses:
             200:
                 description: Airport deleted successfully

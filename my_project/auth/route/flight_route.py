@@ -56,7 +56,7 @@ def get_flight_by_id(flight_id):
         ---
         tags:
             - flights
-        parameters:
+                parameters:
             - name: flight_id
                 in: path
                 type: integer
@@ -83,11 +83,11 @@ def create_flight():
             - flights
         consumes:
             - application/json
-        parameters:
-            - in: body
-                name: body
-                required: true
-                schema:
+            parameters:
+                - in: body
+                    name: body
+                    required: true
+                    schema:
                     type: object
                     required:
                         - flight_number
@@ -132,15 +132,15 @@ def update_flight(flight_id):
             - flights
         consumes:
             - application/json
-        parameters:
-            - name: flight_id
-                in: path
-                type: integer
-                required: true
-                description: ID of the flight to update
-            - in: body
-                name: body
-                schema:
+            parameters:
+                - name: flight_id
+                    in: path
+                    type: integer
+                    required: true
+                    description: ID of the flight to update
+                - in: body
+                    name: body
+                    schema:
                     type: object
                     properties:
                         flight_number:
@@ -176,12 +176,12 @@ def delete_flight(flight_id):
         ---
         tags:
             - flights
-        parameters:
-            - name: flight_id
-                in: path
-                type: integer
-                required: true
-                description: ID of the flight to delete
+            parameters:
+                - name: flight_id
+                    in: path
+                    type: integer
+                    required: true
+                    description: ID of the flight to delete
         responses:
             200:
                 description: Flight deleted successfully
