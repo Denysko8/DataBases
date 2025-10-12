@@ -56,12 +56,12 @@ def get_flight_by_id(flight_id):
         ---
         tags:
             - flights
-                parameters:
+        parameters:
             - name: flight_id
-                in: path
-                type: integer
-                required: true
-                description: ID of the flight to retrieve
+              in: path
+              type: integer
+              required: true
+              description: ID of the flight to retrieve
         responses:
             200:
                 description: Flight object
@@ -83,34 +83,34 @@ def create_flight():
             - flights
         consumes:
             - application/json
-            parameters:
-                - in: body
-                    name: body
-                    required: true
-                    schema:
-                    type: object
-                    required:
-                        - flight_number
-                        - departure_airport_id
-                        - arrival_airport_id
-                        - departure_time
-                        - arrival_time
-                    properties:
-                        flight_number:
-                            type: string
-                            example: PS123
-                        departure_airport_id:
-                            type: integer
-                            example: 1
-                        arrival_airport_id:
-                            type: integer
-                            example: 2
-                        departure_time:
-                            type: string
-                            format: date-time
-                        arrival_time:
-                            type: string
-                            format: date-time
+        parameters:
+            - in: body
+              name: body
+              required: true
+              schema:
+                type: object
+                required:
+                  - flight_number
+                  - departure_airport_id
+                  - arrival_airport_id
+                  - departure_time
+                  - arrival_time
+                properties:
+                  flight_number:
+                    type: string
+                    example: PS123
+                  departure_airport_id:
+                    type: integer
+                    example: 1
+                  arrival_airport_id:
+                    type: integer
+                    example: 2
+                  departure_time:
+                    type: string
+                    format: date-time
+                  arrival_time:
+                    type: string
+                    format: date-time
         responses:
             201:
                 description: Flight created successfully
@@ -132,29 +132,29 @@ def update_flight(flight_id):
             - flights
         consumes:
             - application/json
-            parameters:
-                - name: flight_id
-                    in: path
+        parameters:
+            - name: flight_id
+              in: path
+              type: integer
+              required: true
+              description: ID of the flight to update
+            - in: body
+              name: body
+              schema:
+                type: object
+                properties:
+                  flight_number:
+                    type: string
+                  departure_airport_id:
                     type: integer
-                    required: true
-                    description: ID of the flight to update
-                - in: body
-                    name: body
-                    schema:
-                    type: object
-                    properties:
-                        flight_number:
-                            type: string
-                        departure_airport_id:
-                            type: integer
-                        arrival_airport_id:
-                            type: integer
-                        departure_time:
-                            type: string
-                            format: date-time
-                        arrival_time:
-                            type: string
-                            format: date-time
+                  arrival_airport_id:
+                    type: integer
+                  departure_time:
+                    type: string
+                    format: date-time
+                  arrival_time:
+                    type: string
+                    format: date-time
         responses:
             200:
                 description: Flight updated successfully
@@ -176,12 +176,12 @@ def delete_flight(flight_id):
         ---
         tags:
             - flights
-            parameters:
-                - name: flight_id
-                    in: path
-                    type: integer
-                    required: true
-                    description: ID of the flight to delete
+        parameters:
+            - name: flight_id
+              in: path
+              type: integer
+              required: true
+              description: ID of the flight to delete
         responses:
             200:
                 description: Flight deleted successfully

@@ -106,13 +106,13 @@ def create_plane_with_maintenance():
             - planes
         consumes:
             - application/json
-            parameters:
-                - in: body
-                    name: body
-                    required: true
-                    schema:
-                    type: object
-                    properties:
+        parameters:
+            - in: body
+              name: body
+              required: true
+              schema:
+                type: object
+                properties:
                         model:
                             type: string
                         airline_id:
@@ -145,12 +145,12 @@ def get_plane_by_id(plane_id):
         ---
         tags:
             - planes
-            parameters:
-                - name: plane_id
-                    in: path
-                    type: integer
-                    required: true
-                    description: ID of the plane to retrieve
+        parameters:
+            - name: plane_id
+              in: path
+              type: integer
+              required: true
+              description: ID of the plane to retrieve
         responses:
             200:
                 description: Plane object
@@ -171,19 +171,19 @@ def create_plane():
             - planes
         consumes:
             - application/json
-            parameters:
-                - in: body
-                    name: body
-                    required: true
-                    schema:
-                    type: object
-                    required:
-                        - model
-                    properties:
-                        model:
-                            type: string
-                        airline_id:
-                            type: integer
+                parameters:
+                        - in: body
+                            name: body
+                            required: true
+                            schema:
+                                type: object
+                                required:
+                                    - model
+                                properties:
+                                    model:
+                                        type: string
+                                    airline_id:
+                                        type: integer
         responses:
             201:
                 description: Plane created successfully
@@ -204,21 +204,21 @@ def update_plane(plane_id):
             - planes
         consumes:
             - application/json
-            parameters:
-                - name: plane_id
-                    in: path
-                    type: integer
-                    required: true
-                    description: ID of the plane to update
-                - in: body
-                    name: body
-                    schema:
-                    type: object
-                    properties:
-                        model:
-                            type: string
-                        airline_id:
+                parameters:
+                        - name: plane_id
+                            in: path
                             type: integer
+                            required: true
+                            description: ID of the plane to update
+                        - in: body
+                            name: body
+                            schema:
+                                type: object
+                                properties:
+                                    model:
+                                        type: string
+                                    airline_id:
+                                        type: integer
         responses:
             200:
                 description: Plane updated successfully
@@ -239,12 +239,12 @@ def delete_plane(plane_id):
         ---
         tags:
             - planes
-            parameters:
-                - name: plane_id
-                    in: path
-                    type: integer
-                    required: true
-                    description: ID of the plane to delete
+        parameters:
+            - name: plane_id
+              in: path
+              type: integer
+              required: true
+              description: ID of the plane to delete
         responses:
             200:
                 description: Plane deleted successfully

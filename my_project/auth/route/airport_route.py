@@ -88,27 +88,27 @@ def create_airport():
             - airports
         consumes:
             - application/json
-        parameters:
-            - in: body
-              name: body
-              required: true
-              schema:
-                    type: object
-                    required:
-                        - name
-                    properties:
-                        name:
-                            type: string
-                            example: Lviv Danylo Halytskyi
-                        city:
-                            type: string
-                            example: Lviv
-                        country:
-                            type: string
-                            example: Ukraine
-                        iata_code:
-                            type: string
-                            example: LWO
+                parameters:
+                        - in: body
+                            name: body
+                            required: true
+                            schema:
+                                type: object
+                                required:
+                                    - name
+                                properties:
+                                    name:
+                                        type: string
+                                        example: Lviv Danylo Halytskyi
+                                    city:
+                                        type: string
+                                        example: Lviv
+                                    country:
+                                        type: string
+                                        example: Ukraine
+                                    iata_code:
+                                        type: string
+                                        example: LWO
         responses:
             201:
                 description: Airport created successfully
@@ -138,16 +138,16 @@ def update_airport(airport_id):
                         - in: body
                             name: body
                             schema:
-                    type: object
-                    properties:
-                        name:
-                            type: string
-                        city:
-                            type: string
-                        country:
-                            type: string
-                        iata_code:
-                            type: string
+                                type: object
+                                properties:
+                                    name:
+                                        type: string
+                                    city:
+                                        type: string
+                                    country:
+                                        type: string
+                                    iata_code:
+                                        type: string
         responses:
             200:
                 description: Airport updated successfully
