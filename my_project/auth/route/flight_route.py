@@ -193,6 +193,29 @@ def delete_flight(flight_id):
 # New route to get flight hour stats
 @flight_bp.route('/flights/stats', methods=['GET'])
 def get_flight_hours_stats():
+        """
+        Get flight hours statistics
+
+        Calls a stored procedure `GetStatsForTotalFlightHours` to retrieve aggregated flight hours statistics.
+
+        ---
+        tags:
+            - flights
+            - stats
+        responses:
+            200:
+                description: Statistics for total flight hours
+                schema:
+                    type: object
+                    properties:
+                        stats:
+                            type: string
+                            description: Aggregated stats returned by the stored procedure (format depends on procedure)
+            404:
+                description: No data returned from stored procedure
+            500:
+                description: Server error
+        """
     try:
         # Prepare the SQL query to call the stored procedure
         sql_query = text("CALL GetStatsForTotalFlightHours()")
@@ -204,33 +227,10 @@ def get_flight_hours_stats():
         stats = result.fetchall()  # This will return a list of tuples
 
         # Check if any rows were returned
-                """
-                Get flight hours statistics
-
-                Calls a stored procedure `GetStatsForTotalFlightHours` to retrieve aggregated flight hours statistics.
-
-                ---
-                tags:
-                    - flights
-                    - stats
-                responses:
-                    200:
-                        description: Statistics for total flight hours
-                        schema:
-                            type: object
-                            properties:
-                                stats:
-                                    type: string
-                                    description: Aggregated stats returned by the stored procedure (format depends on procedure)
-                    404:
-                        description: No data returned from stored procedure
-                    500:
-                        description: Server error
-                """
-                if stats:
-                        return jsonify({"stats": stats[0][0]})  # Assuming the first element of the first tuple is your result
-                else:
-                        return jsonify({"error": "No data returned from stored procedure"}), 404
+        if stats:
+            return jsonify({"stats": stats[0][0]})  # Assuming the first element of the first tuple is your result
+        else:
+            return jsonify({"error": "No data returned from stored procedure"}), 404
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -238,6 +238,21 @@ def get_flight_hours_stats():
 
 @flight_bp.route('/random_tables', methods=['GET'])
 def random_tables():
+    """
+    Create dynamic tables
+
+    Calls the stored procedure `CreateDynamicTables` which creates dynamic tables in the database.
+
+    ---
+    tags:
+        - flights
+        - admin
+    responses:
+        200:
+            description: Dynamic tables created successfully
+        500:
+            description: Server error
+    """
     try:
         # Prepare the SQL query to call the CreateDynamicTables procedure
         sql_query = text("CALL CreateDynamicTables()")
@@ -248,22 +263,7 @@ def random_tables():
         # Commit the transaction (if needed)
         db.session.commit()
 
-                """
-                Create dynamic tables
-
-                Calls the stored procedure `CreateDynamicTables` which creates dynamic tables in the database.
-
-                ---
-                tags:
-                    - flights
-                    - admin
-                responses:
-                    200:
-                        description: Dynamic tables created successfully
-                    500:
-                        description: Server error
-                """
-                return jsonify({"message": "Dynamic tables created successfully!"}), 200
+        return jsonify({"message": "Dynamic tables created successfully!"}), 200
     except Exception as e:
         # If any exception occurs, return a 500 error with the error message
         return jsonify({"error": str(e)}), 500
