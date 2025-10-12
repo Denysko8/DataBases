@@ -11,22 +11,22 @@ plane_bp = Blueprint('plane', __name__)
 
 @plane_bp.route('/planes_noname', methods=['POST'])
 def bulk_insert_planes():
+    """
+    Bulk insert planes using stored procedure
+
+    Calls the `bulk_insert_planes` stored procedure to insert multiple plane records in bulk.
+
+    ---
+    tags:
+      - planes
+      - admin
+    responses:
+      200:
+        description: Planes inserted successfully
+      500:
+        description: Server error
+    """
     try:
-                """
-                Bulk insert planes using stored procedure
-
-                Calls the `bulk_insert_planes` stored procedure to insert multiple plane records in bulk.
-
-                ---
-                tags:
-                    - planes
-                    - admin
-                responses:
-                    200:
-                        description: Planes inserted successfully
-                    500:
-                        description: Server error
-                """
         # Execute the stored procedure using text()
         db.session.execute(text("CALL bulk_insert_planes()"))
         db.session.commit()
