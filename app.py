@@ -22,24 +22,6 @@ app.register_blueprint(airport_bp, url_prefix='/api')
 app.register_blueprint(plane_bp, url_prefix='/api')
 app.register_blueprint(flight_bp, url_prefix='/api')
 
-@app.route('/api/test-db', methods=['GET'])
-def test_db():
-    """
-    Тест з'єднання з базою даних
-    ---
-    responses:
-      200:
-        description: Успішне з'єднання
-      500:
-        description: Помилка підключення
-    """
-    try:
-        # Виконаємо простий запит до БД
-        result = db.session.execute('SELECT NOW();')
-        timestamp = list(result)[0][0]
-        return jsonify({"status": "connected", "timestamp": str(timestamp)})
-    except Exception as e:
-        return jsonify({"status": "error", "details": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
