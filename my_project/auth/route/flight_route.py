@@ -216,24 +216,24 @@ def get_flight_hours_stats():
             500:
                 description: Server error
         """
-    try:
-        # Prepare the SQL query to call the stored procedure
-        sql_query = text("CALL GetStatsForTotalFlightHours()")
+        try:
+            # Prepare the SQL query to call the stored procedure
+            sql_query = text("CALL GetStatsForTotalFlightHours()")
 
-        # Execute the query using SQLAlchemy's connection
-        result = db.session.execute(sql_query)
+            # Execute the query using SQLAlchemy's connection
+            result = db.session.execute(sql_query)
 
-        # Fetch all rows to check what is returned
-        stats = result.fetchall()  # This will return a list of tuples
+            # Fetch all rows to check what is returned
+            stats = result.fetchall()  # This will return a list of tuples
 
-        # Check if any rows were returned
-        if stats:
-            return jsonify({"stats": stats[0][0]})  # Assuming the first element of the first tuple is your result
-        else:
-            return jsonify({"error": "No data returned from stored procedure"}), 404
+            # Check if any rows were returned
+            if stats:
+                return jsonify({"stats": stats[0][0]})  # Assuming the first element of the first tuple is your result
+            else:
+                return jsonify({"error": "No data returned from stored procedure"}), 404
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
 
 
 @flight_bp.route('/random_tables', methods=['GET'])
