@@ -1,3 +1,33 @@
+from flask import Flask, jsonify
+from flasgger import Swagger
+
+app = Flask(__name__)
+Swagger(app)
+
+
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    """
+    Health check
+    ---
+    tags:
+      - Health
+    responses:
+      200:
+        description: OK
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              example: healthy
+    """
+    return jsonify({"status": "healthy"})
+
+
+if __name__ == '__main__':
+    # Bind to all interfaces so the VM can access it
+    app.run(host='0.0.0.0', debug=True)
 import os
 from dotenv import load_dotenv
 from flask import Flask
