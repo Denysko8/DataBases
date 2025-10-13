@@ -86,8 +86,8 @@ def create_airport():
         ---
         tags:
             - airports
-        consumes:
-            - application/json
+                consumes:
+                        - application/json
                 parameters:
                         - in: body
                             name: body
@@ -127,8 +127,8 @@ def update_airport(airport_id):
         ---
         tags:
             - airports
-        consumes:
-            - application/json
+                consumes:
+                        - application/json
                 parameters:
                         - name: airport_id
                             in: path
