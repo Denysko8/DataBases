@@ -34,13 +34,8 @@ def create_airport():
 
 @airport_bp.route('/airports/<int:airport_id>', methods=['PUT'])
 def update_airport(airport_id):
-        return AirportController.update_airport(airport_id)
-
-
-@airport_bp.route('/airports/<int:airport_id>', methods=['DELETE'])
-def delete_airport(airport_id):
         """
-        Delete airport
+        Update airport
         ---
         tags:
             - Airports
@@ -49,11 +44,32 @@ def delete_airport(airport_id):
                 in: path
                 type: integer
                 required: true
-                description: ID of the airport to delete
+                description: ID of the airport
+            - in: body
+                name: body
+                required: true
+                schema:
+                    type: object
+                    properties:
+                        name:
+                            type: string
+                        city:
+                            type: string
+                        country:
+                            type: string
+                        iata_code:
+                            type: string
         responses:
-            204:
-                description: Deleted
+            200:
+                description: Updated
+            400:
+                description: Invalid input
             404:
                 description: Airport not found
         """
+        return AirportController.update_airport(airport_id)
+
+
+@airport_bp.route('/airports/<int:airport_id>', methods=['DELETE'])
+def delete_airport(airport_id):
         return AirportController.delete_airport(airport_id)
