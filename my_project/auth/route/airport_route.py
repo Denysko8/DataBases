@@ -3,6 +3,7 @@ from my_project.auth.controller.airport_controller import AirportController
 
 airport_bp = Blueprint('airport', __name__)
 
+
 @airport_bp.route('/airports', methods=['GET'])
 def get_all_airports():
         """
@@ -18,7 +19,8 @@ def get_all_airports():
                     items:
                         type: object
         """
-    return AirportController.get_all_airports()
+        return AirportController.get_all_airports()
+
 
 @airport_bp.route('/airports/<int:airport_id>', methods=['GET'])
 def get_airport_by_id(airport_id):
@@ -41,7 +43,8 @@ def get_airport_by_id(airport_id):
             404:
                 description: Airport not found
         """
-    return AirportController.get_airport_by_id(airport_id)
+        return AirportController.get_airport_by_id(airport_id)
+
 
 @airport_bp.route('/airports', methods=['POST'])
 def create_airport():
@@ -75,7 +78,8 @@ def create_airport():
             400:
                 description: Invalid input
         """
-    return AirportController.create_airport()
+        return AirportController.create_airport()
+
 
 @airport_bp.route('/airports/<int:airport_id>', methods=['PUT'])
 def update_airport(airport_id):
@@ -112,7 +116,8 @@ def update_airport(airport_id):
             404:
                 description: Airport not found
         """
-    return AirportController.update_airport(airport_id)
+        return AirportController.update_airport(airport_id)
+
 
 @airport_bp.route('/airports/<int:airport_id>', methods=['DELETE'])
 def delete_airport(airport_id):
@@ -133,4 +138,4 @@ def delete_airport(airport_id):
             404:
                 description: Airport not found
         """
-    return AirportController.delete_airport(airport_id)
+        return AirportController.delete_airport(airport_id)
