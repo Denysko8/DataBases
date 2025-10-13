@@ -106,27 +106,27 @@ def create_plane_with_maintenance():
             - planes
         consumes:
             - application/json
-        parameters:
-            - in: body
-              name: body
-              required: true
-              schema:
-                type: object
-                properties:
-                        model:
-                            type: string
-                        airline_id:
-                            type: integer
-                        maintenances:
-                            type: array
-                            items:
+                parameters:
+                        - in: body
+                            name: body
+                            required: true
+                            schema:
                                 type: object
                                 properties:
-                                    date:
+                                    model:
                                         type: string
-                                        format: date
-                                    description:
-                                        type: string
+                                    airline_id:
+                                        type: integer
+                                    maintenances:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                date:
+                                                    type: string
+                                                    format: date
+                                                description:
+                                                    type: string
         responses:
             201:
                 description: Plane with maintenances created
