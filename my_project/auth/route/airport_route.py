@@ -39,4 +39,21 @@ def update_airport(airport_id):
 
 @airport_bp.route('/airports/<int:airport_id>', methods=['DELETE'])
 def delete_airport(airport_id):
+        """
+        Delete airport
+        ---
+        tags:
+            - Airports
+        parameters:
+            - name: airport_id
+                in: path
+                type: integer
+                required: true
+                description: ID of the airport to delete
+        responses:
+            204:
+                description: Deleted
+            404:
+                description: Airport not found
+        """
         return AirportController.delete_airport(airport_id)
